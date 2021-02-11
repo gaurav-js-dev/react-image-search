@@ -6,9 +6,9 @@ export const getPage = (state: any) => state.page;
 
 function* fetchImagesList() {
   try {
-    const page = yield select(getPage);
-    const response = yield call(getImages, page);
-    yield put(setImagesList(response));
+    // const page = 1;
+    const response = yield call(getImages);
+    yield put(setImagesList(response.data));
   } catch (error) {
     console.log(error);
   }
