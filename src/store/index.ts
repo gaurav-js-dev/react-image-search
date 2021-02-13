@@ -7,7 +7,7 @@ import initialState from './reducers/initialState';
 export default function configureStore() {
   const sagaMiddleware = createSagaMiddleware();
   const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const store = createStore(reducers, composeEnhancers(applyMiddleware(sagaMiddleware)));
+  const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(sagaMiddleware)));
   sagaMiddleware.run(imageSaga);
   return store;
 }
