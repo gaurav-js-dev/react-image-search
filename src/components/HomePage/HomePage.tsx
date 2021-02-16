@@ -31,7 +31,7 @@ const HomePage = () => {
             </div>
           ))}
           <button className="btn btn-info" onClick={loadNextImages}>
-            Show More
+            Show More..
           </button>
         </div>
       </div>
