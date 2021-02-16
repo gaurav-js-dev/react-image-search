@@ -1,0 +1,17 @@
+.Loader {
+  position: fixed;
+  width: 100%;
+  background: #000000;
+  z-index: 9;
+  opacity: 0.5;
+  height: 100vh;
+
+  &__spinner {
+    width: 70px;
+    height: 70px;
+  }
+
+  h1 {
+    color: #fff;
+  }
+}

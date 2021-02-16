@@ -23,14 +23,16 @@ const HomePage = () => {
 
   return (
     <section className="HomePage">
-      <div className="container">
+      <div className="container py-4">
         <div className="row">
           {images.map((image: IImages) => (
-            <div className="col-lg-4 text-center " key={image.url}>
-              <img className="p-3" height={400} width={400} src={image.url} alt="User Avatar" />
+            <div className="col-lg-4 text-center " key={image.id}>
+              <img className="p-3" height={400} width={400} src={image.url} alt={image.url} />
             </div>
           ))}
-          <button className="btn btn-info" onClick={loadNextImages}>
+        </div>
+        <div className="text-center py-4">
+          <button className="btn btn-dark btn-md" onClick={loadNextImages}>
             Show More..
           </button>
         </div>

@@ -1,12 +1,16 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { initialState as imagesState, IImagesState } from './imagesReducer';
+
+import { IImagesState, initialState as imagesState } from './imagesReducer';
+import { ILoadingState, initialState as loaderState } from './loadingReducer';
 
 export interface IReduxState {
   images: IImagesState;
+  loader: ILoadingState;
 }
 
 const initialState: IReduxState = {
-  images: imagesState
+  images: imagesState,
+  loader: loaderState
 };
 
 export const getInitialState = () => cloneDeep(initialState);
