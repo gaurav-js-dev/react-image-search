@@ -1,7 +1,8 @@
-import { getImages } from '../../code/api';
+import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { getImages } from 'src/code/api';
+import { IReduxState } from 'src/store/reducers/initialState';
+
 import { setImagesList, types as imagesTypes } from '../reducers/imagesReducer';
-import { call, put, takeEvery, select } from 'redux-saga/effects';
-import { IReduxState } from '../../store/reducers/initialState';
 
 export const getPage = (state: IReduxState) => state.images.page;
 

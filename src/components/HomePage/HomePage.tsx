@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
-import { fetchImagesList, IImages, loadMoreImages } from '../../store/reducers/imagesReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { IReduxState } from '../../store/reducers/initialState';
+import { fetchImagesList, IImages, loadMoreImages } from 'src/store/reducers/imagesReducer';
+import { IReduxState } from 'src/store/reducers/initialState';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -22,14 +22,20 @@ const HomePage = () => {
   };
 
   return (
-    <div className="HomePage">
-      {images.map((image: IImages) => (
-        <div key={image.url}>
-          <img height={300} width={300} src={image.url} alt="User Avatar" />
+    <section className="HomePage">
+      <div className="container">
+        <div className="row">
+          {images.map((image: IImages) => (
+            <div className="col-lg-4 text-center " key={image.url}>
+              <img className="p-3" height={400} width={400} src={image.url} alt="User Avatar" />
+            </div>
+          ))}
+          <button className="btn btn-info" onClick={loadNextImages}>
+            Show More
+          </button>
         </div>
-      ))}
-      <button onClick={loadNextImages}>Show More </button>
-    </div>
+      </div>
+    </section>
   );
 };
 

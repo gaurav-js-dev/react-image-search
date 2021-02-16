@@ -1,7 +1,7 @@
 import React from 'react';
-import HomePage from './components/HomePage';
 import { Provider } from 'react-redux';
-import configureStore from './store';
+import HomePage from 'src/components/HomePage';
+import configureStore from 'src/store';
 
 const App = () => {
   const store = configureStore();
