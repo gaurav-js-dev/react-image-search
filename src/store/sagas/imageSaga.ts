@@ -11,7 +11,7 @@ export const getPage = (state: IReduxState) => state.images.page;
 
 function* dispatchError(error: AxiosError) {
   const { response } = error;
-  yield put(setError({ code: response?.status, message: response?.data.message }));
+  yield put(setError({ code: response?.status, message: response?.data.errors }));
   yield put(hideLoader());
 }
 

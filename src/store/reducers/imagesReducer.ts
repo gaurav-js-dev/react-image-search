@@ -15,17 +15,20 @@ export interface IImagesState {
   page: number;
 }
 
-type fetchImagesListAction = { type: string };
-type fetchImagesList = () => fetchImagesListAction;
-export const fetchImagesList: fetchImagesList = () => ({
+type FetchImagesListAction = { type: string };
+type FetchImagesList = () => FetchImagesListAction;
+export const fetchImagesList: FetchImagesList = () => ({
   type: types.FETCH_IMAGES_LIST
 });
 
-export const loadMoreImages: any = () => ({
+type LoadMoreImagesAction = { type: string };
+type LoadMoreImages = () => LoadMoreImagesAction;
+export const loadMoreImages: LoadMoreImages = () => ({
   type: types.LOAD_MORE_IMAGES
 });
-type setImagesListAction = { type: string; payload: IImages[] };
-type SetImagesList = (imagesList: IImages[]) => setImagesListAction;
+
+type SetImagesListAction = { type: string; payload: IImages[] };
+type SetImagesList = (imagesList: IImages[]) => SetImagesListAction;
 export const setImagesList: SetImagesList = (imagesList: IImages[]) => ({
   type: types.SET_IMAGES_LIST,
   payload: imagesList
@@ -33,7 +36,7 @@ export const setImagesList: SetImagesList = (imagesList: IImages[]) => ({
 
 export const initialState: IImagesState = { imagesList: [], page: 1 };
 
-type Actions = setImagesListAction;
+type Actions = SetImagesListAction;
 
 const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
   const { payload } = action;

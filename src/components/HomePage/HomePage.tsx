@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImagesList, IImages, loadMoreImages } from 'src/store/reducers/imagesReducer';
@@ -15,6 +16,7 @@ const HomePage = () => {
   }, [fetchImages]);
 
   const images = useSelector((s: IReduxState) => s.images.imagesList);
+  const noImages = isEmpty(images);
 
   const loadNextImages = () => {
     dispatch(loadMoreImages());
@@ -32,9 +34,12 @@ const HomePage = () => {
           ))}
         </div>
         <div className="text-center py-4">
-          <button className="btn btn-dark btn-md" onClick={loadNextImages}>
-            Show More..
-          </button>
+          {noImages && <p>No Images Found !!</p>}
+          {!noImages && (
+            <button className="btn btn-dark btn-md" onClick={loadNextImages}>
+              Show More..
+            </button>
+          )}
         </div>
       </div>
     </section>
