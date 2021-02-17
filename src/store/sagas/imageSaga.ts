@@ -1,11 +1,19 @@
+import { AxiosError } from 'axios';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { getImages } from 'src/code/api';
 import { IReduxState } from 'src/store/reducers/initialState';
 
+import { setError } from '../reducers/errorReducer';
 import { setImagesList, types as imagesTypes } from '../reducers/imagesReducer';
 import { hideLoader, showLoader } from '../reducers/loadingReducer';
 
 export const getPage = (state: IReduxState) => state.images.page;
+
+function* dispatchError(error: AxiosError) {
+  const { response } = error;
+  yield put(setError({ code: response?.status, message: response?.data.message }));
+  yield put(hideLoader());
+}
 
 function* fetchImagesList() {
   try {
@@ -15,7 +23,7 @@ function* fetchImagesList() {
     yield put(setImagesList(response.data));
     yield put(hideLoader());
   } catch (error) {
-    console.log(error);
+    yield call(dispatchError, error);
   }
 }
 

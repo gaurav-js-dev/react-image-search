@@ -37,14 +37,22 @@ type Actions = setImagesListAction;
 
 const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
   const { payload } = action;
-  if (action.type === types.SET_IMAGES_LIST) {
-    return {
-      ...state,
-      imagesList: [...state.imagesList, ...payload.map((image: any) => ({ url: image.urls.small, likes: image.likes, id: image.id }))]
-    };
-  } else if (action.type === types.LOAD_MORE_IMAGES) {
-    return { ...state, page: state.page + 1 };
-  } else return state;
+  switch (action.type) {
+    case types.SET_IMAGES_LIST:
+      return {
+        ...state,
+        imagesList: [...state.imagesList, ...payload.map((image: any) => ({ url: image.urls.small, likes: image.likes, id: image.id }))]
+      };
+
+    case types.LOAD_MORE_IMAGES:
+      return {
+        ...state,
+        page: state.page + 1
+      };
+
+    default:
+      return state;
+  }
 };
 
 export default imagesReducer;
