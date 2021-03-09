@@ -8,6 +8,8 @@ export interface IImages {
   url: string;
   likes: string;
   id: string;
+  width: string;
+  height: string;
 }
 
 export interface IImagesState {
@@ -44,7 +46,10 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
     case types.SET_IMAGES_LIST:
       return {
         ...state,
-        imagesList: [...state.imagesList, ...payload.map((image: any) => ({ url: image.urls.small, likes: image.likes, id: image.id }))]
+        imagesList: [
+          ...state.imagesList,
+          ...payload.map((image: any) => ({ url: image.urls.small, likes: image.likes, id: image.id, height: image.height, width: image.width }))
+        ]
       };
 
     case types.LOAD_MORE_IMAGES:
