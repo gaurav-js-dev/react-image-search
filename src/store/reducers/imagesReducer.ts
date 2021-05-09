@@ -2,9 +2,9 @@ export const types = {
   FETCH_IMAGES_LIST: 'FETCH_IMAGES_LIST',
   SET_IMAGES_LIST: 'SET_IMAGES_LIST',
   LOAD_MORE_IMAGES: 'LOAD_MORE_IMAGES',
-  SET_SEARCH_TEXT: 'SET_SEARCH_TEXT',
   FETCH_IMAGE_SEARCH_DATA: 'FETCH_USER_SEARCH_DATA',
-  SET_IMAGE_SEARCH_DATA: 'SET_USER_SEARCH_DATA'
+  SET_IMAGE_SEARCH_DATA: 'SET_USER_SEARCH_DATA',
+  CLEAR_IMAGES_LIST: 'CLEAR_IMAGES_LIST'
 };
 
 export interface IImages {
@@ -20,28 +20,51 @@ export interface IImagesState {
   page: number;
 }
 
-type FetchImagesListAction = { type: string };
+export type FetchImagesListAction = { type: string };
 type FetchImagesList = () => FetchImagesListAction;
 export const fetchImagesList: FetchImagesList = () => ({
   type: types.FETCH_IMAGES_LIST
 });
 
-type LoadMoreImagesAction = { type: string };
+export type LoadMoreImagesAction = { type: string };
 type LoadMoreImages = () => LoadMoreImagesAction;
 export const loadMoreImages: LoadMoreImages = () => ({
   type: types.LOAD_MORE_IMAGES
 });
 
-type SetImagesListAction = { type: string; payload: IImages[] };
+export type SetImagesListAction = { type: string; payload: IImages[] };
 type SetImagesList = (imagesList: IImages[]) => SetImagesListAction;
 export const setImagesList: SetImagesList = (imagesList: IImages[]) => ({
   type: types.SET_IMAGES_LIST,
   payload: imagesList
 });
 
-export const initialState: IImagesState = { imagesList: [], page: 1 };
+export type FetchImagesSearchDataAction = { type: string; payload: string };
+type FetchImagesSearchData = (query: string) => FetchImagesSearchDataAction;
+export const fetchImagesSearchData: FetchImagesSearchData = query => ({
+  type: types.FETCH_IMAGE_SEARCH_DATA,
+  payload: query
+});
 
-type Actions = SetImagesListAction;
+export type SetImageSearchDataAction = { type: string; payload: IImages[] };
+type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
+export const setImageSearchData: SetImageSearchData = imagesList => ({
+  type: types.SET_IMAGE_SEARCH_DATA,
+  payload: imagesList
+});
+
+export type ClearImagesListAction = { type: string };
+type ClearImagesList = () => ClearImagesListAction;
+export const clearImagesList: ClearImagesList = () => ({
+  type: types.CLEAR_IMAGES_LIST
+});
+
+export const initialState: IImagesState = {
+  imagesList: [],
+  page: 1
+};
+
+type Actions = SetImagesListAction | FetchImagesSearchDataAction | SetImageSearchDataAction;
 
 const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
   const { payload } = action;
@@ -51,7 +74,13 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         ...state,
         imagesList: [
           ...state.imagesList,
-          ...payload.map((image: any) => ({ url: image.urls.small, likes: image.likes, id: image.id, height: image.height, width: image.width }))
+          ...(payload as IImages[]).map((image: any) => ({
+            url: image.urls.small,
+            likes: image.likes,
+            id: image.id,
+            height: image.height,
+            width: image.width
+          }))
         ]
       };
 
@@ -61,6 +90,26 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         page: state.page + 1
       };
 
+    case types.SET_IMAGE_SEARCH_DATA:
+      return {
+        ...state,
+        imagesList: [
+          ...state.imagesList,
+          ...(payload as IImages[]).map((image: any) => ({
+            url: image.urls.small,
+            likes: image.likes,
+            id: image.id,
+            height: image.height,
+            width: image.width
+          }))
+        ]
+      };
+
+    case types.CLEAR_IMAGES_LIST:
+      return {
+        ...state,
+        imagesList: initialState.imagesList
+      };
     default:
       return state;
   }
