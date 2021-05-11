@@ -31,7 +31,7 @@ function* fetchImagesSearchData(action: FetchImagesSearchDataAction) {
   try {
     yield put(showLoader());
     const response = yield call(searchImage, action.payload);
-    yield put(setImageSearchData(response.data));
+    yield put(setImageSearchData(response.data.results));
     yield put(hideLoader());
   } catch (error) {
     yield call(dispatchError, error);

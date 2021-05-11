@@ -48,10 +48,13 @@ export const fetchImagesSearchData: FetchImagesSearchData = query => ({
 
 export type SetImageSearchDataAction = { type: string; payload: IImages[] };
 type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
-export const setImageSearchData: SetImageSearchData = imagesList => ({
-  type: types.SET_IMAGE_SEARCH_DATA,
-  payload: imagesList
-});
+export const setImageSearchData: SetImageSearchData = imagesList => {
+  // console.log(imagesList);
+  return {
+    type: types.SET_IMAGE_SEARCH_DATA,
+    payload: imagesList
+  };
+};
 
 export type ClearImagesListAction = { type: string };
 type ClearImagesList = () => ClearImagesListAction;
@@ -75,7 +78,7 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         imagesList: [
           ...state.imagesList,
           ...(payload as IImages[]).map((image: any) => ({
-            url: image.urls.small,
+            url: image.urls.regular,
             likes: image.likes,
             id: image.id,
             height: image.height,
@@ -96,7 +99,7 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         imagesList: [
           ...state.imagesList,
           ...(payload as IImages[]).map((image: any) => ({
-            url: image.urls.small,
+            url: image.urls.regular,
             likes: image.likes,
             id: image.id,
             height: image.height,
