@@ -2,6 +2,7 @@ export const types = {
   FETCH_IMAGES_LIST: 'FETCH_IMAGES_LIST',
   SET_IMAGES_LIST: 'SET_IMAGES_LIST',
   LOAD_MORE_IMAGES: 'LOAD_MORE_IMAGES',
+  SET_SEARCH_TEXT: 'SET_SEARCH_TEXT',
   FETCH_IMAGE_SEARCH_DATA: 'FETCH_USER_SEARCH_DATA',
   SET_IMAGE_SEARCH_DATA: 'SET_USER_SEARCH_DATA',
   CLEAR_IMAGES_LIST: 'CLEAR_IMAGES_LIST'
@@ -18,6 +19,7 @@ export interface IImages {
 export interface IImagesState {
   imagesList: IImages[];
   page: number;
+  searchText: string;
 }
 
 export type FetchImagesListAction = { type: string };
@@ -46,6 +48,16 @@ export const fetchImagesSearchData: FetchImagesSearchData = query => ({
   payload: query
 });
 
+// export type SetImageSearchDataAction = { type: string; payload: IImages[] };
+// type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
+// export const setSearchText: SetImageSearchData = imagesList => {
+//   // console.log(imagesList);
+//   return {
+//     type: types.SET_IMAGE_SEARCH_DATA,
+//     payload: imagesList
+//   };
+// };
+
 export type SetImageSearchDataAction = { type: string; payload: IImages[] };
 type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
 export const setImageSearchData: SetImageSearchData = imagesList => {
@@ -64,7 +76,8 @@ export const clearImagesList: ClearImagesList = () => ({
 
 export const initialState: IImagesState = {
   imagesList: [],
-  page: 1
+  page: 1,
+  searchText: ''
 };
 
 type Actions = SetImagesListAction | FetchImagesSearchDataAction | SetImageSearchDataAction;
@@ -78,7 +91,7 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         imagesList: [
           ...state.imagesList,
           ...(payload as IImages[]).map((image: any) => ({
-            url: image.urls.regular,
+            url: image.urls.small,
             likes: image.likes,
             id: image.id,
             height: image.height,
@@ -93,13 +106,19 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         page: state.page + 1
       };
 
+    case types.FETCH_IMAGE_SEARCH_DATA:
+      return {
+        ...state,
+        searchText: payload as string
+      };
+
     case types.SET_IMAGE_SEARCH_DATA:
       return {
         ...state,
         imagesList: [
           ...state.imagesList,
           ...(payload as IImages[]).map((image: any) => ({
-            url: image.urls.regular,
+            url: image.urls.small,
             likes: image.likes,
             id: image.id,
             height: image.height,

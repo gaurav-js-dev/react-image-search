@@ -30,7 +30,8 @@ function* fetchImagesList() {
 function* fetchImagesSearchData(action: FetchImagesSearchDataAction) {
   try {
     yield put(showLoader());
-    const response = yield call(searchImage, action.payload);
+    const page = yield select(getPage);
+    const response = yield call(searchImage, action.payload, page);
     yield put(setImageSearchData(response.data.results));
     yield put(hideLoader());
   } catch (error) {

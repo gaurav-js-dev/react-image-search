@@ -1,11 +1,14 @@
 import isEmpty from 'lodash/isEmpty';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchImagesList, IImages, loadMoreImages } from 'src/store/reducers/imagesReducer';
+import { fetchImagesList, fetchImagesSearchData, IImages, loadMoreImages } from 'src/store/reducers/imagesReducer';
 import { IReduxState } from 'src/store/reducers/initialState';
 import './ImageList.scss';
 
 const ImageList = () => {
+  const images = useSelector((s: IReduxState) => s.images.imagesList);
+  const searchText = useSelector((s: IReduxState) => s.images.searchText);
+
   const dispatch = useDispatch();
 
   const fetchImages = useCallback(() => {
@@ -16,13 +19,17 @@ const ImageList = () => {
     fetchImages();
   }, [fetchImages]);
 
-  const images = useSelector((s: IReduxState) => s.images.imagesList);
+  const fetchSearchImages = useCallback(() => {
+    dispatch(loadMoreImages());
+    dispatch(fetchImagesSearchData(searchText));
+  }, [searchText, dispatch]);
+
   const noImages = isEmpty(images);
 
-  const loadNextImages = () => {
+  const loadNextImages = useCallback(() => {
     dispatch(loadMoreImages());
     fetchImages();
-  };
+  }, [dispatch, fetchImages]);
 
   return (
     <div className="container py-4">
@@ -37,7 +44,7 @@ const ImageList = () => {
       <div className="text-center py-4">
         {noImages && <p>No Images Found !!</p>}
         {!noImages && (
-          <button className="btn btn-dark btn-md" onClick={loadNextImages}>
+          <button className="btn btn-dark btn-md" onClick={searchText ? fetchSearchImages : loadNextImages}>
             Show More..
           </button>
         )}
