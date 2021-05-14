@@ -1,5 +1,5 @@
-{
-  "name": "react-final-project",
+{ "homepage": "http://gaurav-js-dev.github.io/what-the-splash",
+  "name": "what-the-splash",
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
@@ -23,6 +23,7 @@
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",
     "typescript": "~3.9.7"
+
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,6 +44,9 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "dependencies": {
+      "gh-pages": "^3.1.0"
+    }
   }
 }
