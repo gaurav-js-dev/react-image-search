@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImagesList, fetchImagesSearchData, IImages, loadMoreImages } from 'src/store/reducers/imagesReducer';
 import { IReduxState } from 'src/store/reducers/initialState';
