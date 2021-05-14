@@ -23,7 +23,15 @@ const ImageSearch = () => {
   return (
     <div className="container mt-2">
       <div className="input-group">
-        <input type="text" name="search" className="form-control" id="search" placeholder="Search for Images" onKeyDown={handleKeyDown} />
+        <input
+          type="text"
+          autoComplete="off"
+          name="search"
+          className="form-control"
+          id="search"
+          placeholder="Search for Images"
+          onKeyDown={handleKeyDown}
+        />
         <label className="btn btn-dark" htmlFor="search" onClick={() => handleSearch('Jaipur')}>
           <span role="img" aria-label="search">
             🔍
