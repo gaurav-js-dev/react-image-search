@@ -31,6 +31,7 @@ const ImageSearch = () => {
           id="search"
           placeholder="Search for Images"
           onKeyDown={handleKeyDown}
+          onBlur={e => e.target.blur()}
         />
         <label className="btn btn-dark" htmlFor="search" onClick={() => handleSearch('Jaipur')}>
           <span role="img" aria-label="search">
