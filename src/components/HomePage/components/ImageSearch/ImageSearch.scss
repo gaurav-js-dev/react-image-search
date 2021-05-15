@@ -1,8 +1,12 @@
-header {
+.ImageSearch {
   font-size: 1.5rem;
   font-family: "Pacifico";
   text-align: center;
   padding: 0.6rem;
   color: #000000;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   top: 0;
+  background: #fff;
+  position: sticky;
+  z-index: 1;
 }
