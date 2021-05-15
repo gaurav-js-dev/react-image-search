@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "416d6db2e092ff94044c621f03ea4d84",
+    "revision": "4943e3e4c984c9b3e65541360cb8ec5f",
     "url": "/what-the-splash/index.html"
   },
   {
-    "revision": "2b03374b31efde1b50ee",
+    "revision": "30726bc063a20e11571e",
     "url": "/what-the-splash/static/css/main.d6375d5f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/what-the-splash/static/js/2.45f5d721.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2b03374b31efde1b50ee",
-    "url": "/what-the-splash/static/js/main.f5da3f0f.chunk.js"
+    "revision": "30726bc063a20e11571e",
+    "url": "/what-the-splash/static/js/main.aa2ce187.chunk.js"
   },
   {
     "revision": "1aa6b21b4ca18d4d1f12",
