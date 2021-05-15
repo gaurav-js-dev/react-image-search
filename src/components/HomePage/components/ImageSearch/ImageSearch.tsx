@@ -14,9 +14,10 @@ const ImageSearch = () => {
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       const { value: searchText } = e.target as HTMLInputElement;
       handleSearch(searchText);
+      (e.target as HTMLInputElement).blur();
     }
   };
 
@@ -31,7 +32,6 @@ const ImageSearch = () => {
           id="search"
           placeholder="Search for Images"
           onKeyDown={handleKeyDown}
-          onBlur={e => e.target.blur()}
         />
         <label className="btn btn-dark" htmlFor="search" onClick={() => handleSearch('Jaipur')}>
           <span role="img" aria-label="search">
