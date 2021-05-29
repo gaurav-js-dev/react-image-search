@@ -17,7 +17,7 @@ function* dispatchError(error: AxiosError) {
 
 function* fetchImagesList() {
   try {
-    const page: = yield select(getPage);
+    const page = yield select(getPage);
     yield put(showLoader());
     const response = yield call(getImages, page);
     yield put(setImagesList(response.data));
