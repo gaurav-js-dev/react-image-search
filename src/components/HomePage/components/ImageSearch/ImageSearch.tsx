@@ -12,7 +12,6 @@ const ImageSearch = () => {
     (searchText: string) => {
       dispatch(clearImagesList());
       dispatch(fetchImagesSearchData(searchText));
-      console.log('fetching handle search');
     },
     [dispatch]
   );

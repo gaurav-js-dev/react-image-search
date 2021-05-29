@@ -48,20 +48,9 @@ export const fetchImagesSearchData: FetchImagesSearchData = query => ({
   payload: query
 });
 
-// export type SetImageSearchDataAction = { type: string; payload: IImages[] };
-// type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
-// export const setSearchText: SetImageSearchData = imagesList => {
-//   // console.log(imagesList);
-//   return {
-//     type: types.SET_IMAGE_SEARCH_DATA,
-//     payload: imagesList
-//   };
-// };
-
 export type SetImageSearchDataAction = { type: string; payload: IImages[] };
 type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
 export const setImageSearchData: SetImageSearchData = imagesList => {
-  // console.log(imagesList);
   return {
     type: types.SET_IMAGE_SEARCH_DATA,
     payload: imagesList
