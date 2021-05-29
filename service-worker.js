@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/what-the-splash/precache-manifest.c5af05640f108ea08eaac24779e5a9dc.js"
+  "/what-the-splash/precache-manifest.ed99ade54e078a3584e19ef468667301.js"
 );
 
 self.addEventListener('message', (event) => {
