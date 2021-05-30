@@ -4,11 +4,10 @@ import React from 'react';
 
 const Header = () => (
   <header>
-    {' '}
     <span role="img" aria-label="camera">
       📸
-    </span>{' '}
-    Imagica Image Search Engine!
+    </span>
+    React Image Search Engine
   </header>
 );
 
