@@ -75,6 +75,7 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
   const { payload } = action;
   switch (action.type) {
     case types.SET_IMAGES_LIST:
+    case types.SET_IMAGE_SEARCH_DATA:
       return {
         ...state,
         imagesList: [
@@ -100,22 +101,6 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         ...state,
         searchText: payload as string
       };
-
-    case types.SET_IMAGE_SEARCH_DATA:
-      return {
-        ...state,
-        imagesList: [
-          ...state.imagesList,
-          ...(payload as IImages[]).map((image: any) => ({
-            url: image.urls.small,
-            likes: image.likes,
-            id: image.id,
-            height: image.height,
-            width: image.width
-          }))
-        ]
-      };
-
     case types.CLEAR_IMAGES_LIST:
       return {
         ...state,
