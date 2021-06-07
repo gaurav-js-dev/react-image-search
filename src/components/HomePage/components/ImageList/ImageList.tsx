@@ -1,15 +1,17 @@
+import './ImageList.scss';
+
 import isEmpty from 'lodash/isEmpty';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchImagesList, fetchImagesSearchData, IImages, loadMoreImages } from 'src/store/reducers/imagesReducer';
+import { fetchImagesList, fetchImagesSearchData, IImages, setPageIncrement } from 'src/store/reducers/imagesReducer';
 import { IReduxState } from 'src/store/reducers/initialState';
-import './ImageList.scss';
 
 const ImageList = () => {
-  const images = useSelector((s: IReduxState) => s.images.imagesList);
-  const searchText = useSelector((s: IReduxState) => s.images.searchText);
-
   const dispatch = useDispatch();
+  const images = useSelector((s: IReduxState) => s.images.imagesList);
+  const noImages = isEmpty(images);
+
+  const searchText = useSelector((s: IReduxState) => s.images.searchText);
 
   const fetchImages = useCallback(() => {
     dispatch(fetchImagesList());
@@ -20,14 +22,12 @@ const ImageList = () => {
   }, [fetchImages]);
 
   const fetchSearchImages = useCallback(() => {
-    dispatch(loadMoreImages());
+    dispatch(setPageIncrement());
     dispatch(fetchImagesSearchData(searchText));
   }, [searchText, dispatch]);
 
-  const noImages = isEmpty(images);
-
   const loadNextImages = useCallback(() => {
-    dispatch(loadMoreImages());
+    dispatch(setPageIncrement());
     fetchImages();
   }, [dispatch, fetchImages]);
 
@@ -42,8 +42,9 @@ const ImageList = () => {
         ))}
       </div>
       <div className="text-center py-4">
-        {noImages && <p>No Images Found !!</p>}
-        {!noImages && (
+        {noImages ? (
+          <p>No Images Found !!</p>
+        ) : (
           <button className="btn btn-dark btn-md" onClick={searchText ? fetchSearchImages : loadNextImages}>
             Show More..
           </button>

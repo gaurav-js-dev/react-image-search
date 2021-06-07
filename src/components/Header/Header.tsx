@@ -3,7 +3,7 @@ import './Header.scss';
 import React from 'react';
 
 const Header = () => (
-  <header>
+  <header onClick={() => window.location.reload()}>
     <span role="img" aria-label="camera">
       📸
     </span>

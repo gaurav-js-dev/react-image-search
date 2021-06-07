@@ -4,7 +4,7 @@ import { getImages, searchImage } from 'src/code/api';
 import { IReduxState } from 'src/store/reducers/initialState';
 
 import { setError } from '../reducers/errorReducer';
-import { setImagesList, types as imagesTypes, setImageSearchData, FetchImagesSearchDataAction } from '../reducers/imagesReducer';
+import { FetchImagesSearchDataAction, setImagesList, types as imagesTypes } from '../reducers/imagesReducer';
 import { hideLoader, showLoader } from '../reducers/loadingReducer';
 
 export const getPage = (state: IReduxState) => state.images.page;
@@ -15,11 +15,10 @@ function* dispatchError(error: AxiosError) {
   yield put(hideLoader());
 }
 
-function* fetchImagesList() {
+function* handleFetchImagesList() {
   try {
-    const page = yield select(getPage);
     yield put(showLoader());
-    const response = yield call(getImages, page);
+    const response = yield call(getImages);
     yield put(setImagesList(response.data));
     yield put(hideLoader());
   } catch (error) {
@@ -27,12 +26,12 @@ function* fetchImagesList() {
   }
 }
 
-function* fetchImagesSearchData(action: FetchImagesSearchDataAction) {
+function* handlefetchImagesSearchData(action: FetchImagesSearchDataAction) {
   try {
     const page = yield select(getPage);
     yield put(showLoader());
     const response = yield call(searchImage, action.payload, page);
-    yield put(setImageSearchData(response.data.results));
+    yield put(setImagesList(response.data.results));
     yield put(hideLoader());
   } catch (error) {
     yield call(dispatchError, error);
@@ -40,6 +39,6 @@ function* fetchImagesSearchData(action: FetchImagesSearchDataAction) {
 }
 
 export default function* imageSaga() {
-  yield takeEvery(imagesTypes.FETCH_IMAGES_LIST, fetchImagesList);
-  yield takeEvery(imagesTypes.FETCH_IMAGE_SEARCH_DATA, fetchImagesSearchData);
+  yield takeEvery(imagesTypes.FETCH_IMAGES_LIST, handleFetchImagesList);
+  yield takeEvery(imagesTypes.FETCH_IMAGE_SEARCH_DATA, handlefetchImagesSearchData);
 }

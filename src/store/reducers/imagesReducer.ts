@@ -1,10 +1,9 @@
 export const types = {
   FETCH_IMAGES_LIST: 'FETCH_IMAGES_LIST',
   SET_IMAGES_LIST: 'SET_IMAGES_LIST',
-  LOAD_MORE_IMAGES: 'LOAD_MORE_IMAGES',
+  SET_PAGE_INCREMENT: 'SET_PAGE_INCREMENT',
   SET_SEARCH_TEXT: 'SET_SEARCH_TEXT',
   FETCH_IMAGE_SEARCH_DATA: 'FETCH_USER_SEARCH_DATA',
-  SET_IMAGE_SEARCH_DATA: 'SET_USER_SEARCH_DATA',
   CLEAR_IMAGES_LIST: 'CLEAR_IMAGES_LIST'
 };
 
@@ -28,10 +27,10 @@ export const fetchImagesList: FetchImagesList = () => ({
   type: types.FETCH_IMAGES_LIST
 });
 
-export type LoadMoreImagesAction = { type: string };
-type LoadMoreImages = () => LoadMoreImagesAction;
-export const loadMoreImages: LoadMoreImages = () => ({
-  type: types.LOAD_MORE_IMAGES
+export type SetPageIncrementAction = { type: string };
+type SetPageIncrement = () => SetPageIncrementAction;
+export const setPageIncrement: SetPageIncrement = () => ({
+  type: types.SET_PAGE_INCREMENT
 });
 
 export type SetImagesListAction = { type: string; payload: IImages[] };
@@ -41,21 +40,12 @@ export const setImagesList: SetImagesList = (imagesList: IImages[]) => ({
   payload: imagesList
 });
 
-export type FetchImagesSearchDataAction = { type: string; payload: string };
+export type FetchImagesSearchDataAction = { type: string; payload: string }; // Setting the search text to global state and passing the text to saga.
 type FetchImagesSearchData = (query: string) => FetchImagesSearchDataAction;
 export const fetchImagesSearchData: FetchImagesSearchData = query => ({
   type: types.FETCH_IMAGE_SEARCH_DATA,
   payload: query
 });
-
-export type SetImageSearchDataAction = { type: string; payload: IImages[] };
-type SetImageSearchData = (imagesList: IImages[]) => SetImageSearchDataAction;
-export const setImageSearchData: SetImageSearchData = imagesList => {
-  return {
-    type: types.SET_IMAGE_SEARCH_DATA,
-    payload: imagesList
-  };
-};
 
 export type ClearImagesListAction = { type: string };
 type ClearImagesList = () => ClearImagesListAction;
@@ -69,13 +59,12 @@ export const initialState: IImagesState = {
   searchText: ''
 };
 
-type Actions = SetImagesListAction | FetchImagesSearchDataAction | SetImageSearchDataAction;
+type Actions = SetImagesListAction | FetchImagesSearchDataAction;
 
 const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
   const { payload } = action;
   switch (action.type) {
     case types.SET_IMAGES_LIST:
-    case types.SET_IMAGE_SEARCH_DATA:
       return {
         ...state,
         imagesList: [
@@ -90,13 +79,13 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         ]
       };
 
-    case types.LOAD_MORE_IMAGES:
+    case types.SET_PAGE_INCREMENT:
       return {
         ...state,
         page: state.page + 1
       };
 
-    case types.FETCH_IMAGE_SEARCH_DATA:
+    case types.FETCH_IMAGE_SEARCH_DATA: // Setting the search text to global state and passing the text to saga.
       return {
         ...state,
         searchText: payload as string
