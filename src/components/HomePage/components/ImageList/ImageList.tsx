@@ -8,6 +8,7 @@ import { IReduxState } from 'src/store/reducers/initialState';
 
 const ImageList = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((s: IReduxState) => s.loader.isLoading);
   const images = useSelector((s: IReduxState) => s.images.imagesList);
   const noImages = isEmpty(images);
 
@@ -30,6 +31,8 @@ const ImageList = () => {
     dispatch(setPageIncrement());
     fetchImages();
   }, [dispatch, fetchImages]);
+
+  if (isLoading && noImages) return null;
 
   return (
     <div className="container py-4">
