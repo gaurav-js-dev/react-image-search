@@ -70,7 +70,7 @@ const imagesReducer = (state: IImagesState = initialState, action: Actions) => {
         imagesList: [
           ...state.imagesList,
           ...(payload as IImages[]).map((image: any) => ({
-            url: image.urls.small,
+            url: image.urls.regular,
             likes: image.likes,
             id: image.id,
             height: image.height,

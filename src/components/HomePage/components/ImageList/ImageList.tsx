@@ -1,4 +1,5 @@
 import './ImageList.scss';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import isEmpty from 'lodash/isEmpty';
 import React, { useCallback, useEffect } from 'react';
@@ -36,23 +37,25 @@ const ImageList = () => {
 
   return (
     <div className="container py-4">
-      <div className="row">
-        {images.map((image: IImages) => (
-          <div className="col-lg-4 text-center " key={image.id}>
-            <span className="stats">{`${image.likes} 🧡`}</span>
-            <img className="py-1" height={400} width={400} src={image.url} alt={image.url} />
-          </div>
-        ))}
-      </div>
-      <div className="text-center py-4">
-        {noImages ? (
-          <p>No Images Found !!</p>
-        ) : (
-          <button className="btn btn-dark btn-md" onClick={searchText ? fetchSearchImages : loadNextImages}>
-            Show More..
-          </button>
-        )}
-      </div>
+      <InfiniteScroll dataLength={images.length} next={searchText ? fetchSearchImages : loadNextImages} hasMore={true} loader={''}>
+        <div className="row">
+          {images.map((image: IImages) => (
+            <div className="col-lg-4 text-center " key={image.id}>
+              <span className="stats">{`${image.likes} 🧡`}</span>
+              <img className="py-1" height={400} width={400} src={image.url} alt={image.url} />
+            </div>
+          ))}
+        </div>
+        <div className="text-center py-4">
+          {noImages ? (
+            <p>No Images Found !!</p>
+          ) : (
+            <button className="btn btn-dark btn-md" onClick={searchText ? fetchSearchImages : loadNextImages}>
+              Show More..
+            </button>
+          )}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 };
