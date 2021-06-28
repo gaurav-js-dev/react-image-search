@@ -46,15 +46,7 @@ const ImageList = () => {
             </div>
           ))}
         </div>
-        <div className="text-center py-4">
-          {noImages ? (
-            <p>No Images Found !!</p>
-          ) : (
-            <button className="btn btn-dark btn-md" onClick={searchText ? fetchSearchImages : loadNextImages}>
-              Show More..
-            </button>
-          )}
-        </div>
+        <div className="text-center py-4">{noImages && <p>No Images Found !!</p>}</div>
       </InfiniteScroll>
     </div>
   );
