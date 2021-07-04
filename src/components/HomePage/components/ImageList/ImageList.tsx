@@ -1,8 +1,8 @@
 import './ImageList.scss';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 import isEmpty from 'lodash/isEmpty';
 import React, { useCallback, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImagesList, fetchImagesSearchData, IImages, setPageIncrement } from 'src/store/reducers/imagesReducer';
 import { IReduxState } from 'src/store/reducers/initialState';
@@ -36,7 +36,7 @@ const ImageList = () => {
   if (isLoading && noImages) return null;
 
   return (
-    <div className="container py-4">
+    <div className="ImageList container py-4">
       <InfiniteScroll dataLength={images.length} next={searchText ? fetchSearchImages : loadNextImages} hasMore={true} loader={''}>
         <div className="row">
           {images.map((image: IImages) => (
