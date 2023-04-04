@@ -33,7 +33,7 @@ const ImageList = () => {
     fetchImages();
   }, [dispatch, fetchImages]);
 
-  if (isLoading && noImages) return null;
+  if (isLoading) return null;
 
   return (
     <div className="ImageList container py-4">
